@@ -1,0 +1,10 @@
+PySide6
+python-dotenv
+pyyaml
+loguru
+requests
+ollama
+pdfplumber
+python-docx
+chromadb
+sentence-transformers
