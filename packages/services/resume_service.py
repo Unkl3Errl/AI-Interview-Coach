@@ -1,5 +1,5 @@
-from interview_coach_core import ResumeParser
-from candidate_intelligence import ProfileBuilder
+from packages.interview_coach_core import ResumeParser
+from packages.candidate_intelligence import ProfileBuilder
 
 
 class ResumeService:

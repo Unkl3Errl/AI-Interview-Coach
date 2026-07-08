@@ -1,4 +1,4 @@
-from interview_coach_core import JobAnalyzer
+from packages.interview_coach_core import JobAnalyzer
 
 
 class JobService:

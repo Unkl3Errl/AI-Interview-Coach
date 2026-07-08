@@ -1,4 +1,4 @@
-from interview_engine import InterviewManager
+from packages.interview_engine import InterviewManager
 
 
 class InterviewService:
