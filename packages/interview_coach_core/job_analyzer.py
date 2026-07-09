@@ -1,24 +1,91 @@
-from .models import JobProfile
+from packages.interview_coach_core.models import JobProfile
 
 
 class JobAnalyzer:
 
-    def analyze(self, text):
+
+    def analyze(self, job_text):
 
         profile = JobProfile()
 
-        lines = text.splitlines()
+        text = job_text.lower()
 
-        for line in lines:
-            lower = line.lower()
 
-            if "python" in lower:
-                profile.required_skills.append("Python")
+        # Basic title detection
 
-            if "sql" in lower:
-                profile.required_skills.append("SQL")
+        if "architect" in text:
+            profile.title = "Data Architect"
 
-            if "hl7" in lower:
-                profile.required_skills.append("HL7")
+        elif "analyst" in text:
+            profile.title = "Data Analyst"
+
+        elif "developer" in text:
+            profile.title = "Developer"
+
+        else:
+            profile.title = "Unknown"
+
+
+        skill_patterns = {
+
+            "PYTHON": [
+                "python"
+            ],
+
+            "SQL": [
+                "sql",
+                "database",
+                "t-sql"
+            ],
+
+            "HL7": [
+                "hl7",
+                "health level seven"
+            ],
+
+            "HEALTHCARE": [
+                "healthcare",
+                "clinical",
+                "medical"
+            ],
+
+            "DATA ARCHITECTURE": [
+                "data architecture",
+                "data modeling",
+                "enterprise data"
+            ],
+
+            "POWER BI": [
+                "power bi",
+                "powerbi"
+            ],
+
+            "CLOUD": [
+                "azure",
+                "aws",
+                "cloud"
+            ],
+
+            "ETL": [
+                "etl",
+                "data pipeline",
+                "data migration"
+            ]
+
+        }
+
+
+        for skill, keywords in skill_patterns.items():
+
+            for keyword in keywords:
+
+                if keyword in text:
+
+                    profile.required_skills.append(
+                        skill
+                    )
+
+                    break
+
 
         return profile

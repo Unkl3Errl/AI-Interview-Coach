@@ -3,8 +3,14 @@ from packages.interview_coach_core import JobAnalyzer
 
 class JobService:
 
+
     def __init__(self):
+
         self.analyzer = JobAnalyzer()
 
-    def analyze(self, text):
-        return self.analyzer.analyze(text)
+
+    def analyze(self, job_text):
+
+        return self.analyzer.analyze(
+            job_text
+        )

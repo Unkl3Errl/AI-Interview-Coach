@@ -1,4 +1,4 @@
-from .models import CandidateProfile, Experience
+from packages.candidate_intelligence.models import CandidateProfile
 
 
 class ProfileBuilder:
@@ -11,59 +11,91 @@ class ProfileBuilder:
         text = resume_text.lower()
 
 
+        # Name detection
         if "alvey" in text:
             profile.name = "Alvey Walbert"
 
 
-        keywords = [
-            "python",
-            "sql",
-            "hl7",
-            "healthcare",
-            "data architecture",
-            "data conversion",
-            "etl",
-            "power bi"
-        ]
+        skill_patterns = {
+
+            "PYTHON": [
+                "python",
+                "python programming",
+                "python scripting"
+            ],
+
+            "SQL": [
+                "sql",
+                "sql server",
+                "t-sql",
+                "pl/sql",
+                "database"
+            ],
+
+            "HL7": [
+                "hl7",
+                "health level seven",
+                "hl7 interface",
+                "hl7 messaging"
+            ],
+
+            "HEALTHCARE": [
+                "healthcare",
+                "health care",
+                "clinical",
+                "medical"
+            ],
+
+            "POWER BI": [
+                "power bi",
+                "powerbi"
+            ],
+
+            "DATA ARCHITECTURE": [
+                "data architecture",
+                "data architect",
+                "enterprise data model",
+                "data modeling"
+            ],
+
+            "ETL": [
+                "etl",
+                "extract transform load",
+                "data conversion",
+                "data migration"
+            ],
+
+            "API": [
+                "api",
+                "rest",
+                "web service"
+            ],
+
+            "CLOUD": [
+                "azure",
+                "aws",
+                "cloud"
+            ]
+
+        }
 
 
-        for skill in keywords:
-            if skill in text:
-                profile.skills.append(skill.upper())
+        for skill, keywords in skill_patterns.items():
+
+            for keyword in keywords:
+
+                if keyword in text:
+
+                    profile.skills.append(skill)
+
+                    break
 
 
-        profile.experiences = self.extract_experience(
-            resume_text
+        profile.summary = (
+            "Healthcare data professional with "
+            "experience in architecture, "
+            "integration, conversion, and analytics."
         )
 
 
         return profile
-
-
-
-    def extract_experience(self, text):
-
-        experiences = []
-
-
-        companies = [
-            "SIU School of Medicine",
-            "Galen Healthcare",
-            "22nd Century Technologies",
-            "LRS"
-        ]
-
-
-        for company in companies:
-
-            if company.lower() in text.lower():
-
-                experiences.append(
-                    Experience(
-                        company=company,
-                        role="Relevant technical role"
-                    )
-                )
-
-
-        return experiences

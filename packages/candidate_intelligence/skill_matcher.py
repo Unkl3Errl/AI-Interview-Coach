@@ -1,30 +1,60 @@
 class SkillMatcher:
 
 
-    def analyze(self, candidate, job):
+    def compare(
+        self,
+        candidate,
+        job
+    ):
 
-        strengths = []
-        gaps = []
-
-
-        for skill in job.required_skills:
-
-            found = False
-
-            for candidate_skill in candidate.skills:
-
-                if skill.lower() in candidate_skill.lower():
-                    found = True
+        candidate_skills = set(
+            candidate.skills
+        )
 
 
-            if found:
-                strengths.append(skill)
+        required_skills = set(
+            job.required_skills
+        )
 
-            else:
-                gaps.append(skill)
+
+        matched = (
+            candidate_skills
+            &
+            required_skills
+        )
+
+
+        missing = (
+            required_skills
+            -
+            candidate_skills
+        )
+
+
+        if required_skills:
+
+            score = int(
+                len(matched)
+                /
+                len(required_skills)
+                *
+                100
+            )
+
+        else:
+
+            score = 0
 
 
         return {
-            "strengths": strengths,
-            "development_areas": gaps
+
+            "score": score,
+
+            "matched": list(
+                matched
+            ),
+
+            "missing": list(
+                missing
+            )
         }

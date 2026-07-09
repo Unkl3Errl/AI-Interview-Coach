@@ -1,4 +1,4 @@
-from interview_coach_core import LLMClient
+from packages.interview_coach_core import LLMClient
 
 
 class Interviewer:
